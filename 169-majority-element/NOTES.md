@@ -1,0 +1,2 @@
+moore's voting algo
+​
