@@ -4,12 +4,13 @@ class Solution {
         int n = nums.length;
         int []ans = new int[2];
         for(int i = 0; i < n; i++){
-            int new_target = target - nums[i];
-            if(temp.isEmpty() || !(temp.containsKey(new_target))) temp.put(nums[i], i);
-            else if(temp.containsKey(new_target)){
+            if(temp.containsKey(target - nums[i])){
                 ans[0] = i;
-                ans[1] = temp.get(new_target);
+                ans[1] = temp.get(target - nums[i]);
                 return ans;
+            }
+            else{
+                temp.put(nums[i], i);
             }
         }
         return ans;
