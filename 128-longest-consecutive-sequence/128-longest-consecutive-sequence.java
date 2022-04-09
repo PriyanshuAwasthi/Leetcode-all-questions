@@ -17,7 +17,7 @@ class Solution {
                     count++;
                     num_a += 1;
                 }
-                longest = (longest < count) ? count : longest;
+                longest = Math.max(count, longest);
             }
         }
         return longest;
