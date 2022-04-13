@@ -10,36 +10,26 @@ class Solution {
        
         
         while(top <= down && left <= right){
-       
-                for(int i = left; i <= right; i++){
-                    res.add(matrix[top][i]);
+            for(int i = left; i <= right; i++){
+                res.add(matrix[top][i]);
+            }
+            top++;
+            for(int i = top; i <= down; i++){
+               res.add(matrix[i][right]);                
+            }
+            right--;
+            if(top <= down){
+                for(int i = right; i >= left; i--){
+                    res.add(matrix[down][i]);
                 }
-                top++;
-            
-         
-                for(int i = top; i <= down; i++){
-                    res.add(matrix[i][right]);
-                }
-                right--;
-            
-                if(top <= down){
-                    for(int i = right; i >= left; i--){
-                        res.add(matrix[down][i]);
-                    }
-                    
-                    down--;
-                    
-                }
+                down--;
+            }
             if(left <= right){
                 for(int i = down; i >= top; i--){
                         res.add(matrix[i][left]);
-                    }
+                }
                 left++;
-            }
-            
-                
-          
-           
+            }   
         }
         return res;
     }
