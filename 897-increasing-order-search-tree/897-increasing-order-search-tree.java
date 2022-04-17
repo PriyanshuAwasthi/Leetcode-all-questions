@@ -21,8 +21,7 @@ class Solution {
         increasingBST(root.left); 
         temp.right = new TreeNode(root.val);
         temp = temp.right;
-        increasingBST(root.right);
-            
+        increasingBST(root.right);    
         return parent.right;
     }
 }
