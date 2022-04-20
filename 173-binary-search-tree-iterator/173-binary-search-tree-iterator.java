@@ -17,13 +17,13 @@ class BSTIterator {
     ArrayList<Integer> res = new ArrayList<Integer>();
     int temp = -1;
     public BSTIterator(TreeNode root) {
-        inorder(root);
+        inorder(root, res);
     }
-    public void inorder(TreeNode root){
+    public void inorder(TreeNode root, List<Integer> res){
         if(root == null) return;
-        inorder(root.left);
+        inorder(root.left, res);
         res.add(root.val);
-        inorder(root.right);
+        inorder(root.right, res);
     }
     public int next(){
         if(temp == -1){
