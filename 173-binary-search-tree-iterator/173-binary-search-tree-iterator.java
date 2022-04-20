@@ -14,12 +14,12 @@
  * }
  */
 class BSTIterator {
-    ArrayList<Integer> res = new ArrayList<Integer>();
+    private ArrayList<Integer> res = new ArrayList<Integer>();
     int temp = -1;
     public BSTIterator(TreeNode root) {
         inorder(root, res);
     }
-    public void inorder(TreeNode root, List<Integer> res){
+    private void inorder(TreeNode root, List<Integer> res){
         if(root == null) return;
         inorder(root.left, res);
         res.add(root.val);
