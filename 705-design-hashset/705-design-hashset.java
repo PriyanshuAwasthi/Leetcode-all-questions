@@ -1,20 +1,20 @@
 class MyHashSet {
-    Map<Integer, Integer> ref = new HashMap<Integer, Integer>();
+    private boolean temp[];
     public MyHashSet() {
-        
+        temp = new boolean[10000001];
+        Arrays.fill(temp, false);
     }
     
     public void add(int key) {
-        ref.put(key, 1);
+        temp[key] = true;
     }
     
     public void remove(int key) {
-        if(ref.containsKey(key)) ref.remove(key);
-        else return;
+        if(temp[key] == true) temp[key] = false;
     }
     
     public boolean contains(int key) {
-        return ref.containsKey(key);
+        return temp[key];
     }
 }
 
