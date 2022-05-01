@@ -1,27 +1,44 @@
 class Solution {
     public boolean backspaceCompare(String s, String t) {
-        String s1 = backspace(s);
-        String s2 = backspace(t);
+        int s_itt = s.length() - 1;
+        int t_itt = t.length() - 1;
         
-        return s1.equals(s2);
-    }
-    
-    public String backspace(String s){
-        int n = s.length() - 1;
-        int count = 0;
-        StringBuilder res = new StringBuilder();
-        for(int i = n; i >= 0; i--){
-            if(s.charAt(i) == '#'){
-                count++;
+        int s_jump = 0;
+        int t_jump = 0;
+        
+        while(s_itt >= 0 || t_itt >= 0){
+            while(s_itt >= 0){
+                if(s.charAt(s_itt) == '#'){
+                    s_jump++;
+                    s_itt--;
+                }
+                else if(s_jump > 0){
+                    s_itt--;
+                    s_jump--;
+                }
+                else break;
             }
-            else if(count != 0){
-                count--;
+            
+            while(t_itt >= 0){
+                if(t.charAt(t_itt) == '#'){
+                    t_jump++;
+                    t_itt--;
+                }
+                else if(t_jump > 0){
+                    t_itt--;
+                    t_jump--;
+                }
+                else break;
             }
-            else{
-                res.append(s.charAt(i));
-            }
+            
+            if(s_itt >= 0 && t_itt >= 0 && s.charAt(s_itt) != t.charAt(t_itt)) return false;
+            
+            if((s_itt >= 0) != (t_itt >= 0)) return false;
+            
+            s_itt--;
+            t_itt--;
         }
         
-        return res.toString();
+        return true;
     }
 }
