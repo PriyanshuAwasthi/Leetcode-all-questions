@@ -1,25 +1,17 @@
 class Solution {
     public int[] sortArrayByParity(int[] nums) {
-        ArrayList<Integer> count = new ArrayList<Integer>();
-        int n = nums.length;
-        int i = 0;
-        int a = 0;
-        while(i < n){
-            if(nums[i] % 2 == 0){
-                nums[a] = nums[i];
-                a++;
-                i++;
-            }
-            else{
-                count.add(nums[i]);
-                i++;
-            }
-        }
+        int start = 0;
+        int end = nums.length - 1;
         
-        Iterator<Integer> iter = count.iterator();
-        while(iter.hasNext()){
-            nums[a] = iter.next();
-            a++;
+        while(start < end){
+            if(nums[start] % 2 > nums[end] % 2){
+                int t = nums[start];
+                nums[start] = nums[end];
+                nums[end] = t;
+            }
+            
+            if(nums[start] % 2 == 0) start++;
+            if(nums[end] % 2 == 1) end--;
         }
         
         return nums;
