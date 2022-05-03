@@ -1,21 +1,30 @@
 class Solution {
     public int findUnsortedSubarray(int[] nums) {
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         int n = nums.length;
-        int max = nums[0];
-        int min = nums[n-1];
 
-		// Values are chosen to handle edge cases. 
-        //For unsorted arrays , values will be updated inside the loop.
-        int high = 0, low = 1;
-		
-        for(int i=0, j=n-1; i < n; i++, j--){
-            if(nums[i] < max)
-                high = i;
-            if(nums[j] > min)
-                low = j;
-            max = Math.max(max, nums[i]);
-            min = Math.min(min, nums[j]);
+        for(int i = 1; i < n; i++){
+            if(nums[i] < nums[i - 1])
+                min = Math.min(min, nums[i]);
         }
-        return high - low + 1;
+        
+       
+        for(int i = n - 2; i >= 0; i--){
+            if(nums[i] > nums[i + 1])
+                max = Math.max(max, nums[i]);
+        }
+        
+        int l, r;
+        for(l = 0; l < n; l++){
+            if(min < nums[l])
+                break;
+        }
+        
+        for(r = n - 1; r >= 0; r--){
+            if(max > nums[r])
+                break;
+        }
+        
+        return (r - l > 0) ? r - l + 1 : 0;
     }
 }
