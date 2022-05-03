@@ -1,37 +1,30 @@
 class Solution {
-    public List < List < Integer >> threeSum(int[] nums) {
-        // Sort the given array
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        int n = nums.length;
         Arrays.sort(nums);
-
-        List < List < Integer >> result = new ArrayList < > ();
-        for (int num1Idx = 0; num1Idx + 2 < nums.length; num1Idx++) {
-            // Skip all duplicates from left
-            // num1Idx>0 ensures this check is made only from 2nd element onwards
-            if (num1Idx > 0 && nums[num1Idx] == nums[num1Idx - 1]) {
-                continue;
-            }
-
-            int num2Idx = num1Idx + 1;
-            int num3Idx = nums.length - 1;
-            while (num2Idx < num3Idx) {
-                int sum = nums[num2Idx] + nums[num3Idx] + nums[num1Idx];
-                if (sum == 0) {
-                    // Add triplet to result
-                    result.add(Arrays.asList(nums[num1Idx], nums[num2Idx], nums[num3Idx]));
-
-                    num3Idx--;
-
-                    // Skip all duplicates from right
-                    while (num2Idx < num3Idx && nums[num3Idx] == nums[num3Idx + 1]) num3Idx--;
-                } else if (sum > 0) {
-                    // Decrement num3Idx to reduce sum value
-                    num3Idx--;
-                } else {
-                    // Increment num2Idx to increase sum value
-                    num2Idx++;
+        for(int i = 0; i < n; i++){
+            int left = i + 1;
+            int right = n - 1;
+            int new_target = 0 - nums[i];
+            
+            while(left < right){
+                if(nums[left] + nums[right] > new_target) --right;
+                else if(nums[left] + nums[right] < new_target) ++left;
+                else{
+                    List<Integer> res2 = new ArrayList<Integer>();
+                    
+                    res2.add(nums[i]);
+                    res2.add(nums[left]);
+                    res2.add(nums[right]);
+                    res.add(res2);
+                    
+                    while(left < right && nums[left] == res2.get(1)) ++left;
+                    while(left < right && nums[right] == res2.get(2)) --right;
                 }
             }
+            while(i + 1 < n && nums[i] == nums[i + 1]) ++i;
         }
-        return result;
+        return res;
     }
 }
