@@ -3,7 +3,8 @@ class Solution {
         int n = nums.length;
         if(n == 1) return 1;
         int pointer = 0;
-        for(int head = 1; head < n; ){
+        int head = 1;
+        while(head < n){
             if(nums[head] == nums[pointer]) head++;
             else{
                 pointer++;
