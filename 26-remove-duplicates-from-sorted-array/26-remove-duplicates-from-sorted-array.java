@@ -5,10 +5,12 @@ class Solution {
         int pointer = 0;
         int head = 1;
         while(head < n){
-            if(nums[head] == nums[pointer]) head++;
-            else{
+            if(nums[head] != nums[pointer]){
                 pointer++;
                 nums[pointer] = nums[head];
+            } 
+            else{
+                head++;  
             }
         }
         
