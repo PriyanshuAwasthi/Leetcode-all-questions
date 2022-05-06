@@ -1,33 +1,33 @@
 class Solution {
     public String removeDuplicates(String s, int k) {
-        Stack<Pair> stack=new Stack<>();
-        for(char c:s.toCharArray()){
-            if(!stack.isEmpty()&&stack.peek().a==c&&stack.peek().c<k){
-                int n=stack.peek().c;
-                stack.peek().c=n+1;
-                if(stack.peek().c==k){
-                    stack.pop();
-                }
+        Stack<Pair> st = new Stack<>();
+        char []ch_arr = s.toCharArray();
+        for(char c : ch_arr){
+            if(!st.isEmpty() && st.peek().c == c && st.peek().n < k){
+                st.peek().n += 1;
+                if(st.peek().n == k) st.pop();
             }
-            else{
-                stack.push(new Pair(c, 1));
+            else st.push(new Pair(c, 1));
+        }
+        
+        StringBuilder res = new StringBuilder("");
+        while(!st.isEmpty()){
+            int n = st.peek().n;
+            char x = st.peek().c;
+            for(int i = 0; i < n; i++){
+                res.append(x);
             }
+            st.pop();
         }
-        StringBuilder sb=new StringBuilder("");
-        while(!stack.isEmpty()){
-            char ar[]=new char[stack.peek().c];
-            Arrays.fill(ar, stack.peek().a);
-            sb.append(String.valueOf(ar));
-            stack.pop();
-        }
-        return sb.reverse().toString();
+        
+        return res.reverse().toString();
     }
-}
-class Pair{
-    char a;
-    int c;
-    Pair(char a, int c){
-        this.a=a;
-        this.c=c;
+    class Pair{
+        char c;
+        int n;
+        Pair(char c, int n){
+            this.c = c;
+            this.n = n;
+        }
     }
 }
