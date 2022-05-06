@@ -1,24 +1,33 @@
 class Solution {
     public String removeDuplicates(String s, int k) {
-        char[] arr = s.toCharArray();
-        int n = arr.length;
-        int[] count = new int[n];
-        int top = -1;
-        for (int i = 0; i < n; i++) {
-            if (top == -1) {
-                ++top;
-                arr[top] = arr[i];
-                count[top] = 1;
-            } else {
-                if (top >= 0 && arr[top] == arr[i] && (count[top] + 1) == k) {
-                    top -= k - 1;
-                } else {
-                    top++;
-                    count[top] = (arr[top - 1] == arr[i] ? (count[top - 1] + 1) : 1);
-                    arr[top] = arr[i];
+        Stack<Pair> stack=new Stack<>();
+        for(char c:s.toCharArray()){
+            if(!stack.isEmpty()&&stack.peek().a==c&&stack.peek().c<k){
+                int n=stack.peek().c;
+                stack.peek().c=n+1;
+                if(stack.peek().c==k){
+                    stack.pop();
                 }
             }
+            else{
+                stack.push(new Pair(c, 1));
+            }
         }
-        return new String(arr, 0, top + 1);
+        StringBuilder sb=new StringBuilder("");
+        while(!stack.isEmpty()){
+            char ar[]=new char[stack.peek().c];
+            Arrays.fill(ar, stack.peek().a);
+            sb.append(String.valueOf(ar));
+            stack.pop();
+        }
+        return sb.reverse().toString();
+    }
+}
+class Pair{
+    char a;
+    int c;
+    Pair(char a, int c){
+        this.a=a;
+        this.c=c;
     }
 }
