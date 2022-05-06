@@ -6,7 +6,7 @@ class Solution {
         int i = 0;
         while(i < nums.length){
             if(nums[i] == 1) curr++;
-            else curr = 0;
+            else{curr = 0; i++; continue;}
             i++;
             if(curr > max) max = curr;
         }
