@@ -11,7 +11,6 @@ class Solution {
             e = e + i + o + u;
             i = i + o + u;
             o = o + u;
-            u = u;
         }
         
         return a + e + i + o + u;
