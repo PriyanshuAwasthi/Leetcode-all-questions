@@ -23,7 +23,10 @@ class Solution {
     
     private int max_depth(TreeNode root){
         if(root == null) return 0;
-        return 1 + Math.max(max_depth(root.left), max_depth(root.right));
+        int l_d = max_depth(root.left);
+        int r_d = max_depth(root.right);
+        if(l_d > r_d) return l_d + 1;
+        else return r_d + 1;
     }
     
     private void find_sum(TreeNode root, int i, int depth){
