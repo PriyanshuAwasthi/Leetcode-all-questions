@@ -1,18 +1,31 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        Arrays.sort(nums); 
-        List<List<Integer>> ansList = new ArrayList<>(); 
-        findSubsets(0, nums, new ArrayList<>(), ansList); 
-        return ansList;
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        find_subset(0, new ArrayList<>(), res, nums);
+        Set<List> set1 = new HashSet<List>();
+        for(int i = 0; i < res.size(); i++){
+            set1.add(res.get(i));
+        }
+        List<List<Integer>> finl = new ArrayList<List<Integer>>();
+        Iterator<List> itt = set1.iterator();
+        while(itt.hasNext()){
+            finl.add(itt.next());
+        }
+        return finl;
     }
     
-    public static void findSubsets(int ind, int[] nums, List<Integer> ds, List<List<Integer>> ansList){
-        ansList.add(new ArrayList<>(ds)); 
-        for(int i = ind;i<nums.length;i++) {
-            if(i!=ind && nums[i] == nums[i-1]) continue; 
-            ds.add(nums[i]); 
-            findSubsets(i+1, nums, ds, ansList); 
-            ds.remove(ds.size() - 1);
+    private void find_subset(int i, List<Integer> res2, List<List<Integer>> res, int[] nums){
+        if(i == nums.length){
+            res.add(new ArrayList<>(res2));
+            return;
         }
+        
+        find_subset(i + 1, res2, res, nums);
+        res2.add(nums[i]);
+
+        find_subset(i + 1, res2, res, nums);
+        res2.remove(res2.size() - 1);
+
     }
 }
