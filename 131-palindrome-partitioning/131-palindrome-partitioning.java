@@ -1,47 +1,29 @@
 class Solution {
-    
-    ArrayList<List<String>> answer;
-    
     public List<List<String>> partition(String s) {
-        answer = new ArrayList<>();
-        solution(s, new ArrayList<String>());
-        
-        return answer;
+        List<List<String>> res = new ArrayList<List<String>>();
+        findpalindrome(0, s, res, new ArrayList<>());
+        return res;
     }
-
-	public boolean isPalindrome(String str) {
-		
-		int length = str.length();
-		for(int idx = 0; idx < length/2; idx++) {
-			if(str.charAt(idx) != str.charAt(length - 1 - idx)) return false;
-		}
-
-		return true;
-	}
- 
-	public void solution(String str, ArrayList<String> asf) {
-		
-		if(str.length() == 0) {            
-            answer.add(new ArrayList<>(asf));
-			return;
-		}
-
-
-		// Take out palindromes from the starting of the question string which is left.
-		for(int idx = 0; idx < str.length(); idx++) {
-			String sub = str.substring(0, idx + 1);
-			
-			if(isPalindrome(sub)) {
-                
-                asf.add(sub);
-                solution(str.substring(idx + 1), asf);
-				// backtrack and remove the palindromic substring added and found the next one starting from the same letter as this one `sub`.
-                asf.remove(asf.size() - 1);
-			}
-
-		}
-		
-	}
-
     
+    private void findpalindrome(int i, String s, List<List<String>> res, List<String> temp){
+        if(i == s.length()){
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        
+        for(int a = i; a < s.length(); a++){
+            if(isPalindrome(s, i, a)){
+                temp.add(s.substring(i, a + 1));
+                findpalindrome(a + 1, s, res, temp);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+    
+    private boolean isPalindrome(String s, int start, int end){
+        while(start <= end){
+            if(s.charAt(start++) != s.charAt(end--)) return false;
+        }
+        return true;
+    }
 }
