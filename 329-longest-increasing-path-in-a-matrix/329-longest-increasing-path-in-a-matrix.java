@@ -20,7 +20,7 @@ class Solution {
     }
     
     private int find_path(int matrix[][], int m, int n, int i, int j){
-        if(rem[i][j] != -1) return rem[i][j];
+        if(rem[i][j] > 0) return rem[i][j];
         int max = 0;
         for(int a = 0; a < 4; a++){
             int x = i + x_offset[a];
