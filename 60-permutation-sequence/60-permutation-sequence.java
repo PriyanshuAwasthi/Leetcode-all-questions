@@ -7,15 +7,15 @@ class Solution {
             temp.add(i);
         }
         temp.add(n);
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         k -= 1;
         while(true){
-            ans += temp.get(k / factorial);
+            ans.append(temp.get(k / factorial));
             temp.remove(k / factorial);
             if(temp.size() == 0) break;
             k = k % factorial;
             factorial /= temp.size();
         }
-        return ans;
+        return ans.toString();
     }
 }
