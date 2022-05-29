@@ -10,7 +10,8 @@ class Solution {
         for(int i = 0; i < n; i++){
             for(int j = i + 1; j < n; j++){
                 if((bit_rep[i] & bit_rep[j]) == 0){
-                    max = (words[i].length() * words[j].length() > max) ? words[i].length() * words[j].length() : max;
+                    int curr_max = words[i].length() * words[j].length();
+                    max = (curr_max > max) ? curr_max : max;
                 }
             }
         }
