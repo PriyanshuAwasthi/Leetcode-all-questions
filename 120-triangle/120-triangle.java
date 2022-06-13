@@ -1,20 +1,23 @@
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
-        int min = 0;
-        for(int i = 1; i < triangle.size(); i++){
-            for(int j = 0; j <= i; j++){
-                if(j == 0) min = triangle.get(i - 1).get(j) + triangle.get(i).get(j);
-                else if(j == i) min = triangle.get(i).get(j) + triangle.get(i - 1).get(j - 1);
-                else{
-                    int a = triangle.get(i - 1).get(j);
-                    int b = triangle.get(i - 1).get(j - 1);
-                    if(a > b) min = triangle.get(i).get(j) + b;
-                    else min = triangle.get(i).get(j) + a;
-                }
-                triangle.get(i).set(j, min);
-            }
-        }
+        int dp[][] = new int[triangle.size()][triangle.get(triangle.size() - 1).size()];
+        for(int r[] : dp) Arrays.fill(r, Integer.MAX_VALUE);
         
-        return Collections.min(triangle.get(triangle.size() - 1));
+        return helper(triangle, 0, 0, dp);
+    }
+    
+    private int helper(List<List<Integer>> triangle, int r, int c, int[][] dp){
+        if(r == triangle.size()) return 0;
+        else if(dp[r][c] != Integer.MAX_VALUE) return dp[r][c];
+        else{
+            int min = 0;
+            int a = helper(triangle, r + 1, c, dp);
+            int b = helper(triangle, r + 1, c + 1, dp);
+            if(a < b) min = a;
+            else min = b;
+            
+            dp[r][c] = triangle.get(r).get(c) + min;
+        }
+        return dp[r][c];
     }
 }
