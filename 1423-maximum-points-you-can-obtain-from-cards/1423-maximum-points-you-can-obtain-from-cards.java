@@ -1,34 +1,21 @@
 class Solution {
-    //minimum subarray of length total_len - k
     public int maxScore(int[] cardPoints, int k) {
-        int pick = cardPoints.length - k;
-        
+        int n = cardPoints.length;
         int sum = 0;
-        
-        int i=0;
-        for(i=0;i<pick;i++){
+        int start = 0;
+        int end = n - k - 1;
+        int new_sum = 0;
+        for(int i = 0; i < n; i++){
             sum += cardPoints[i];
+            if(end == i) new_sum = sum;
         }
-        
-        int omax = sum;
-        int idx = 0;
-        while(i < cardPoints.length){
-            sum -= cardPoints[idx];
-            sum += cardPoints[i];
-            idx++;
-            i++;
-            
-            if(sum < omax){
-                omax = sum;
-            }
+        if(n == k) return sum;
+        int ans = 0;
+        while(end < n && end - start == n - k - 1){
+            ans = Math.max(ans, sum - new_sum);
+            new_sum -= cardPoints[start++];
+            if(end + 1 < n)new_sum += cardPoints[++end];
         }
-        if(omax < 0) omax= 0;
-        
-        int totalsum = 0;
-        for(int j=0;j<cardPoints.length;j++){
-            totalsum += cardPoints[j];
-        }
-        
-        return totalsum - omax;
+        return ans;
     }
 }
