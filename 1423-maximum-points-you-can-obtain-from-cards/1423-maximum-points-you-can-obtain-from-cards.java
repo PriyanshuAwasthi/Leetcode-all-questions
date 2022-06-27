@@ -12,7 +12,9 @@ class Solution {
         if(n == k) return sum;
         int ans = 0;
         while(end < n && end - start == n - k - 1){
-            ans = Math.max(ans, sum - new_sum);
+            //ans = Math.max(ans, sum - new_sum);
+            int temp = sum - new_sum;
+            if(ans < temp) ans = temp; 
             new_sum -= cardPoints[start++];
             if(end + 1 < n)new_sum += cardPoints[++end];
         }
