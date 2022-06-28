@@ -1,7 +1,7 @@
 class Solution {
     public int minDeletions(String s) {
         HashMap<Character, Integer> ht = new HashMap();
-        HashSet<Integer> hs = new HashSet();
+        Set<Integer> hs = new HashSet();
         
         for(int i = 0; i < s.length(); i++){
             ht.put(s.charAt(i), ht.getOrDefault(s.charAt(i), 0) + 1);
