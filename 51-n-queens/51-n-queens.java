@@ -1,56 +1,47 @@
 class Solution {
-    
-    private List<List<String>> solutions;
-    
     public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        char [][]b = new char[n][n];
+        int l[] = new int[n];
+        int l_d[] = new int[2 * n - 1];
+        int u_d[] = new int[2 * n - 1];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                b[i][j] = '.';
+            }
+        }
         
-        solutions = new ArrayList<>();
-        List<String> list = new ArrayList<>();
-        
-        fun(
-            new boolean[n], 
-            new boolean[2 * n - 1],
-            new boolean[2 * n - 1], 
-            0, 
-            list
-        );
-        
-        return solutions;
+        helper(0, b, l, l_d, u_d, res);
+        return res;
     }
     
-    private void fun(
-        boolean[] v, 
-        boolean[] d1, 
-        boolean[] d2, 
-        int i, 
-        List<String> list
-    ) {
-        if(i == v.length) {
-            solutions.add(new ArrayList<>(list));
+    public void helper(int col, char b[][], int l[], int l_d[], int u_d[], List<List<String>> res){
+        if(col == b.length){
+            res.add(make(b));
             return;
-        };
+        }
         
-        for(int j = 0; j < v.length; j++) {
-            
-            if(v[j] == true) continue;
-            if(d1[v.length - i - 1 + j] == true) continue;
-            if(d2[i + j] == true) continue;
-            
-            char[] row = new char[v.length];
-            Arrays.fill(row,'.');
-            row[j] = 'Q';
-            
-            v[j] = true;
-            d1[v.length - i - 1 + j] = true;
-            d2[i + j] = true;
-            list.add(new String(row));
-            
-            fun(v, d1, d2, i + 1, list);
-            
-            v[j] = false;
-            d1[v.length - i - 1 + j] = false;
-            d2[i + j] = false;
-            list.remove(list.size() - 1);
-        }   
+        for(int i = 0; i < b.length; i++){
+            if(l[i] == 0 && l_d[col + i] == 0 && u_d[b.length - 1 + col - i] == 0){
+                l[i] = 1;
+                l_d[col + i] = 1;
+                u_d[b.length - 1 + col - i] = 1;
+                b[i][col] = 'Q';
+                helper(col + 1, b, l, l_d, u_d, res);
+                l[i] = 0;
+                l_d[col + i] = 0;
+                u_d[b.length - 1 + col - i] = 0;
+                b[i][col] = '.';
+            }
+        }
+    }
+    
+    public List<String> make(char b[][]){
+        List<String> res2 = new ArrayList<>();
+        for(int i = 0; i < b.length; i++){
+            String temp = new String(b[i]);
+            res2.add(temp);
+        }
+        return res2;
     }
 }
