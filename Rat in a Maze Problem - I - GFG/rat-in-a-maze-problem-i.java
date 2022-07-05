@@ -37,41 +37,28 @@ class Solution {
         ArrayList<String> ans = new ArrayList<>();
         int arr[][] = new int[n][n];
         for(int []temp : arr) Arrays.fill(temp, 0);
-        if(m[0][0] == 1) helper(0, 0, m, n, ans, "", arr);
+        int i_offset[] = new int[]{1, 0, 0, -1};
+        int j_offset[] = new int[]{0, -1, 1, 0};
+        if(m[0][0] == 1) helper(0, 0, m, n, ans, "", arr, i_offset, j_offset);
         return ans;
     }
     
-    public static void helper(int i, int j, int [][]m, int n, ArrayList<String> ans, String temp, int [][]arr){
+    public static void helper(int i, int j, int [][]m, int n, ArrayList<String> ans, String temp, int [][]arr, int []i_offset, int []j_offset){
         if(i == n - 1 && j == n - 1){
             ans.add(temp);
             return;
         }
-        //down
-        if(i + 1 < n && m[i + 1][j] != 0 && arr[i + 1][j] != 1){
-            arr[i][j] = 1;
-            helper(i + 1, j, m, n, ans, temp+"D", arr);
-            arr[i][j] = 0;
-        }
         
-        //left
-        if(j - 1 >= 0 && m[i][j - 1] != 0 && arr[i][j - 1] != 1){
-            arr[i][j] = 1;
-            helper(i, j - 1, m, n, ans, temp+"L", arr);
-            arr[i][j] = 0;
-        }
-        
-        //right
-        if(j + 1 < n && m[i][j + 1] != 0 && arr[i][j + 1] != 1){
-            arr[i][j] = 1;
-            helper(i, j + 1, m, n, ans, temp+"R", arr);
-            arr[i][j] = 0;
-        }
-        
-        //up
-        if(i - 1 >= 0 && m[i - 1][j] != 0 && arr[i - 1][j] != 1){
-            arr[i][j] = 1;
-            helper(i - 1, j, m, n, ans, temp+"U", arr);
-            arr[i][j] = 0;
+        String tp = "DLRU";
+        for(int a = 0; a < 4; a++){
+            int index_i = i + i_offset[a];
+            int index_j = j + j_offset[a];
+            
+            if(index_i >= 0 && index_i < n && index_j < n && index_j >= 0 && arr[index_i][index_j] != 1 && m[index_i][index_j] != 0){
+                arr[i][j] = 1;
+                helper(index_i, index_j, m, n, ans, temp + tp.charAt(a), arr, i_offset, j_offset);
+                arr[i][j] = 0;
+            }
         }
     }
 }
