@@ -24,7 +24,8 @@ class Solution {
             for(int c = 1; c <= n; c++){
                 int new_nbr = curr_nbr;
                 if(left_col != c) new_nbr++;
-                min_cost = Math.min(min_cost, cost[starting][c - 1] + helper(houses, cost, m, n, target, starting + 1, new_nbr, c));
+                int temp = cost[starting][c - 1] + helper(houses, cost, m, n, target, starting + 1, new_nbr, c);
+                if(min_cost > temp) min_cost = temp;
             }
             dp[starting][curr_nbr][left_col] = min_cost;
             return dp[starting][curr_nbr][left_col];
