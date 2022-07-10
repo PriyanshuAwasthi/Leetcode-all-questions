@@ -1,30 +1,39 @@
-class Solution{
+class Solution {
+    public int global_min = 1000001;
+    public int [][][]dp;
     public int minCost(int[] houses, int[][] cost, int m, int n, int target) {
-	var price = minCost(houses, cost, m, n, target, 0, 0, 0, new Integer[m][n + 1][target + 1]);
-	return (price == Integer.MAX_VALUE) ? -1 : price;
-}
-
-public int minCost(int[] houses, int[][] cost, int m, int n, int target, int i, int prev, int hoods, Integer[][][] memo) {
-	if (hoods > target)
-		return Integer.MAX_VALUE;
-	if (i == m)
-		return (hoods == target) ? 0 : Integer.MAX_VALUE;
-	if (memo[i][prev][hoods] != null)
-		return memo[i][prev][hoods];
-
-	var minPrice = Integer.MAX_VALUE;
-
-	if (houses[i] == 0)
-		for (var j = 0; j < n; j++) {
-			var newHoods = (prev == j + 1) ? hoods : hoods + 1;
-			var price = minCost(houses, cost, m, n, target, i + 1, j + 1, newHoods, memo);
-			if (price != Integer.MAX_VALUE)
-				minPrice = Math.min(minPrice, cost[i][j] + price);
-		}
-	else {
-		var newHoods = (houses[i] == prev) ? hoods : hoods + 1;
-		minPrice = Math.min(minPrice, minCost(houses, cost, m, n, target, i + 1, houses[i], newHoods, memo));
-	}
-	return memo[i][prev][hoods] = minPrice;
-}
+        dp = new int[m][target + 1][n + 1];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < target + 1; j++){
+                for(int k = 0; k < n + 1; k++) dp[i][j][k] = -1;
+            }
+        }
+        int ans = helper(houses, cost, m, n, target, 0, 0, 0);
+        return (ans < global_min) ? ans : -1;
+    }
+    
+    public int helper(int[] houses, int[][] cost, int m, int n, int target, int starting, int curr_nbr, int left_col){
+        if(starting == m) return (curr_nbr == target) ? 0 : global_min;
+        
+        if(curr_nbr > target) return global_min;
+        
+        if(dp[starting][curr_nbr][left_col] != -1) return dp[starting][curr_nbr][left_col];
+        
+        if(houses[starting] == 0){
+            int min_cost = global_min;
+            for(int c = 1; c <= n; c++){
+                int new_nbr = curr_nbr;
+                if(left_col != c) new_nbr++;
+                min_cost = Math.min(min_cost, cost[starting][c - 1] + helper(houses, cost, m, n, target, starting + 1, new_nbr, c));
+            }
+            dp[starting][curr_nbr][left_col] = min_cost;
+            return dp[starting][curr_nbr][left_col];
+        }
+        else{
+            int new_nbr = curr_nbr;
+            if(houses[starting] != left_col) new_nbr++;
+            dp[starting][curr_nbr][left_col] = helper(houses, cost, m, n, target, starting + 1, new_nbr, houses[starting]);
+            return dp[starting][curr_nbr][left_col];
+        }
+    }
 }
