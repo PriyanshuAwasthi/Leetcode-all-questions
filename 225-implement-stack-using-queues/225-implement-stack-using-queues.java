@@ -1,59 +1,52 @@
 class MyStack {
-    Queue<Integer> help;
-    Queue<Integer> help2;
+    public Queue<Integer> q1;
+    public Queue<Integer> q2;
     public MyStack() {
-        help = new LinkedList<Integer>();
-        help2 = new LinkedList<Integer>();
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
     }
     
     public void push(int x) {
-        if(help2.isEmpty()) help.offer(x);
-        else help2.offer(x);
+        if(q1.isEmpty()) q2.add(x);
+        else q1.add(x);
     }
     
     public int pop() {
-    
-        if(help.size() > help2.size()){
-            if(help.size() == 1) return help.poll();
-            while(help.size() != 1){
-                help2.offer(help.poll());
+        if(q1.isEmpty()){
+            while(q2.size() > 1){
+                q1.add(q2.poll());
             }
-            return help.poll();
+            return q2.poll();
         }
-        else if(help2.size() > help.size()){
-            if(help2.size() == 1) return help2.poll();
-            while(help2.size() != 1){
-                help.offer(help2.poll());
+        else{
+            while(q1.size() > 1){
+                q2.add(q1.poll());
             }
-            return help2.poll();
+            return q1.poll();
         }
-        return 1;
     }
     
     public int top() {
-        if(help.size() > help2.size()){
-            if(help.size() == 1) return help.peek();
-            while(help.size() != 1){
-                help2.offer(help.poll());
+        if(q1.isEmpty()){
+            while(q2.size() > 1){
+                q1.add(q2.poll());
             }
-            int a = help.poll();
-            help2.offer(a);
-            return a;
+            int temp = q2.peek();
+            q1.add(q2.poll());
+            return temp;
         }
-        else if(help2.size() > help.size()){
-            if(help2.size() == 1) return help2.poll();
-            while(help2.size() != 1){
-                help.offer(help2.poll());
+        else{
+            while(q1.size() > 1){
+                q2.add(q1.poll());
             }
-            int a = help2.poll();
-            help.offer(a);
-            return a;
+            int temp = q1.peek();
+            q2.add(q1.poll());
+            return temp;
         }
-        return 1;
     }
     
     public boolean empty() {
-        return help.isEmpty() && help2.isEmpty();
+        return q1.isEmpty() && q2.isEmpty();
     }
 }
 
