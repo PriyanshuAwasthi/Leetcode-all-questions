@@ -17,22 +17,35 @@ class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
         if(root == null) return res;
-        int level = 0;
-        Queue<Pair<TreeNode, Integer>> temp1 = new LinkedList<>();
-        temp1.add(new Pair(root, level));
-        List<Integer> tem = new ArrayList<>();
-        while(!temp1.isEmpty()){
-            while(temp1.peek() != null && temp1.peek().getValue() == level){
-                TreeNode t = temp1.peek().getKey();
-                temp1.poll();
-                tem.add(t.val);
-                if(t.left != null) temp1.add(new Pair(t.left, level + 1)); 
-                if(t.right != null) temp1.add(new Pair(t.right, level + 1));
-            }
-            res.add(tem);
-            tem = new ArrayList<Integer>();
-            level++;
-        }
+        Queue<TreeNode> temp1 = new LinkedList<>();
+        temp1.add(root);    
+        temp1.add(null);
+        helper(temp1, res, 0);
         return res;
+    }
+    
+    public void helper(Queue<TreeNode> temp1, ArrayList<List<Integer>> res, int level){
+        if(temp1.isEmpty() || temp1.peek()==null)
+            return;
+        TreeNode t = temp1.poll();
+        while(t!=null){
+            if(level == res.size()){
+                res.add(new ArrayList<Integer>());
+                res.get(level).add(t.val);
+            }
+            else if(level < res.size()) 
+                res.get(level).add(t.val);
+
+            if(t.left != null){
+                temp1.add(t.left);
+            }
+            if(t.right != null){
+                temp1.add(t.right);
+            }
+             t = temp1.poll();
+        }
+        temp1.add(null);
+        helper( temp1, res, level + 1);
+        return;
     }
 }
