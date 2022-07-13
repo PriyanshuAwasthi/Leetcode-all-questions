@@ -11,9 +11,7 @@ class Solution {
         int n = s.length() - 1;
         int res = map.get(s.charAt(n));
         for(int i = n - 1; i >= 0; i--){
-            if(map.get(s.charAt(i)) >= map.get(s.charAt(i + 1))){
-                res += map.get(s.charAt(i));
-            }
+            if(map.get(s.charAt(i)) >= map.get(s.charAt(i + 1))) res += map.get(s.charAt(i));
             else res -= map.get(s.charAt(i));
         }
         return res;
