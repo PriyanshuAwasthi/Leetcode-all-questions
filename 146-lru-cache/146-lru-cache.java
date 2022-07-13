@@ -1,7 +1,55 @@
 class LRUCache {
-    Node head = new Node(0, 0), tail = new Node(0, 0);
-  Map<Integer, Node> map = new HashMap();
-  int capacity;
+    Node head = new Node(0, 0);
+    Node tail = new Node(0, 0);
+    HashMap<Integer, Node> hm = new HashMap<>();
+    int max;
+    public LRUCache(int capacity){
+        head.next = tail;
+        tail.prev = head;
+        max = capacity;
+    }
+    public int get(int key){
+        if(hm.containsKey(key)){
+            Node t = hm.get(key);
+            remove(t);
+            insert(t);
+            return t.value;
+        }
+        else return -1;
+    }
+    
+    public void put(int key, int value){
+        if(hm.containsKey(key)) remove(hm.get(key));
+        if(hm.size() == max) remove(tail.prev);
+        insert(new Node(key, value));
+    }
+    
+    public void insert(Node node){
+        hm.put(node.key, node);
+        node.next = head.next;
+        node.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
+    
+    public void remove(Node node){
+        hm.remove(node.key);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    class Node{
+        Node prev; 
+        Node next;
+        int key;
+        int value;
+        Node(int _key, int _value){
+            key = _key;
+            value = _value;
+        }
+    }
+    /*Node head = new Node(0, 0), tail = new Node(0, 0);
+    Map<Integer, Node> map = new HashMap();
+    int capacity;
   
   public LRUCache(int _capacity) {
     capacity = _capacity;
@@ -51,7 +99,7 @@ class LRUCache {
       key = _key;
       value = _value;
     }
-  }
+  }*/
 }
 
 /**
