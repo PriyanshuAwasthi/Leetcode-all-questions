@@ -25,7 +25,7 @@ class Solution {
     }
     
     public void helper(Queue<TreeNode> temp1, ArrayList<List<Integer>> res, int level){
-        if(temp1.isEmpty() || temp1.peek()==null)
+        if(temp1.peek()==null)
             return;
         TreeNode t = temp1.poll();
         while(t!=null){
