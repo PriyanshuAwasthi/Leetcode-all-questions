@@ -42,7 +42,7 @@ class Solution {
             if(t.right != null){
                 temp1.add(t.right);
             }
-             t = temp1.poll();
+            t = temp1.poll();
         }
         temp1.add(null);
         helper( temp1, res, level + 1);
