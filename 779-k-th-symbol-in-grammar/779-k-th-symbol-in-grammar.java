@@ -5,7 +5,7 @@ class Solution {
         int mid = row / 2;
         if(k <= mid) return kthGrammar(n - 1, k);
         else{
-            return kthGrammar(n - 1, k - mid) ^ 1;
+            return 1 - kthGrammar(n - 1, k - mid);
         }
     }
 }
