@@ -1,16 +1,17 @@
 class Solution {
     public int numPairsDivisibleBy60(int[] time) {
         
-        Map<Integer, Integer> map = new HashMap();
-        int result = 0;
+        int pairs = 0;
+        
+        int[] remainders = new int[60];
         
         for (int i = 0; i < time.length; i++) {
-            int pair = (60 - time[i] % 60) % 60;
-            result += map.getOrDefault(pair, 0);
-            map.put(time[i] % 60, map.getOrDefault(time[i] % 60, 0) + 1);
+            int t = time[i];
+            int r = t % 60;
+            int complement = r == 0 ? 0 : 60 - r;
+            pairs += remainders[complement];
+            remainders[r]++;
         }
-        
-        return result;
-        
+        return pairs;
     }
 }
