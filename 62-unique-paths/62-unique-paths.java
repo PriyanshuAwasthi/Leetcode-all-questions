@@ -1,11 +1,13 @@
 class Solution {
+    public int dp[][];
     public int uniquePaths(int m, int n) {
-        int k = m + n - 2;
-        int x = m - 1;
-        double ans = 1;
-        for(int i = 1; i <= x; i++){
-            ans = ans * (k - x + i) / i; 
-        }
-        return (int)ans;
+        dp = new int[m][n];
+        for(int arr[] : dp) Arrays.fill(arr, - 1);
+        return helper(m - 1, n - 1);
+    }
+    public int helper(int m, int n){
+        if(m == 0 || n == 0) return dp[m][n] = 1;
+        if(dp[m][n] != -1) return dp[m][n];
+        return dp[m][n] = helper(m - 1, n) + helper(m, n - 1);
     }
 }
