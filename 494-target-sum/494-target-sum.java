@@ -7,7 +7,7 @@ class Solution {
         int n = nums.length;
         dum = Math.abs(dum);
     
-        if(sum < Math.abs(target) || (sum + target) % 2 != 0) return 0;
+        if(sum < target || (sum + target) % 2 != 0) return 0;
        
         int dp[][] = new int[n + 1][dum + 1];
        
