@@ -1,4 +1,4 @@
-/*class Solution {
+class Solution {
     public String shortestCommonSupersequence(String str1, String str2) {
         String res = "";
         int n = str1.length();
@@ -14,33 +14,32 @@
         int i = n, j = m;
         while(i > 0 && j > 0){
             if(str1.charAt(i - 1) == str2.charAt(j - 1)){
-                res += str1.charAt(i - 1);
+                res = str1.charAt(i - 1) + res;
                 i--;
                 j--;
             }
+        
+            else if(dp[i - 1][j] > dp[i][j - 1]){
+                res = str1.charAt(i - 1) + res;
+                i--;
+            }
             else{
-                if(dp[i - 1][j] > dp[i][j - 1]){
-                    res += str1.charAt(i - 1);
-                    i--;
-                }
-                else if(dp[i - 1][j] < dp[i][j - 1]){
-                    res += str2.charAt(j - 1);
-                    j--;    
-                }
+                res = str2.charAt(j - 1) + res;
+                j--;    
             }
         }
         while(i > 0){
-            res += str1.charAt(i - 1);
+            res = str1.charAt(i - 1) + res;
             i--;
         }
         while(j > 0){
-            res += str2.charAt(j - 1);
+            res = str2.charAt(j - 1) + res;
             j--;
         }
         return res;
     }
-}*/
-class Solution {
+}
+/*class Solution {
     public String shortestCommonSupersequence(String str1, String str2) {
         int m=str1.length();
         int n=str2.length();
@@ -79,4 +78,4 @@ class Solution {
         }
         return res;
     }
-}
+}*/
