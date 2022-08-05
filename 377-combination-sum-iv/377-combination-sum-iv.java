@@ -10,7 +10,7 @@ class Solution {
         if(t == 0) return 1;
         if(dp[t] != -1) return dp[t];
         int s=0;
-        for(int i = 0; i < n.length; i++) s+=task(n,t-n[i],dp);
+        for(int i = 0; i < n.length; i++) s += task(n, t - n[i], dp);
         dp[t] = s;
         return dp[t];
     }
