@@ -6,7 +6,7 @@ class Solution {
         int st = intervals[0][0];
         int en = intervals[0][1];
         for(int i[] : intervals){
-            if(i[0] <= en) en = Math.max(i[1], en);
+            if(i[0] <= en) en = Math.max(en, i[1]);
             else{
                 ans.add(new int[]{st, en});
                 st = i[0];
