@@ -9,7 +9,7 @@
  */
 
 class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){ 
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(root.val > p.val && root.val > q.val) root = lowestCommonAncestor(root.left, p, q);
         else if(root.val < p.val && root.val < q.val) root = lowestCommonAncestor(root.right, p, q);
         return root;
