@@ -1,22 +1,34 @@
 class Solution {
-    public List<Integer> findSubstring(String s, String[] words) {
-        List<Integer> result = new ArrayList<>();
-        Map<String, Integer> wordFrequencyMap = new HashMap<>();
-        for(String word : words) wordFrequencyMap.put(word, wordFrequencyMap.getOrDefault(word, 0) + 1);
-        int wordLength = words[0].length();
-        int slidingWindowLength = words.length * wordLength;
-        for(int windowStart = 0; windowStart <= s.length() - slidingWindowLength; windowStart++){
-            Map<String, Integer> wordSeenMap = new HashMap<>();
-            for(int wordNum = 0; wordNum < words.length; wordNum++) {
-                int wordStartIdx = windowStart + (wordNum * wordLength);
-                int wordEndIdx = wordStartIdx + wordLength;
-                String word = s.substring(wordStartIdx, wordEndIdx);
-                wordSeenMap.put(word, wordSeenMap.getOrDefault(word, 0) + 1);
-                if (!wordFrequencyMap.containsKey(word)) break;
-                if (wordSeenMap.get(word) > wordFrequencyMap.get(word)) break;
-                if (wordNum == words.length - 1) result.add(windowStart);
-            }
+    private HashMap<String, Integer> wordCount = new HashMap<String, Integer>();
+    private int wordLength;
+    private int substringSize;
+    private int k;
+    
+    private boolean check(int i, String s) {
+        // Copy the original dictionary to use for this index
+        HashMap<String, Integer> remaining = new HashMap<>(wordCount);
+        int wordsUsed = 0;
+        
+        // Each iteration will check for a match in words
+        for(int j = i; j < i + substringSize; j += wordLength) {
+            String sub = s.substring(j, j + wordLength);
+            if (remaining.getOrDefault(sub, 0) != 0) {
+                remaining.put(sub, remaining.get(sub) - 1);
+                wordsUsed++;
+            } 
+            else break;
         }
-        return result;
+        return wordsUsed == k;
+    }
+    
+    public List<Integer> findSubstring(String s, String[] words) {
+        int n = s.length();
+        k = words.length;
+        wordLength = words[0].length();
+        substringSize = wordLength * k;
+        for(String word : words) wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+        List<Integer> answer = new ArrayList<>();
+        for (int i = 0; i < n - substringSize + 1; i++) if(check(i, s)) answer.add(i);
+        return answer;
     }
 }
