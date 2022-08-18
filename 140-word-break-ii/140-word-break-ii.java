@@ -1,6 +1,6 @@
 class Solution {
-    List<String> res;
-    Set<String> temp;
+    public List<String> res;
+    public Set<String> temp;
     public List<String> wordBreak(String s, List<String> wordDict) {
         res = new ArrayList<>();
         temp = new HashSet<>();
