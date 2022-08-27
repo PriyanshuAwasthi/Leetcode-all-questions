@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+/*class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
         Queue<TreeNode> q = new LinkedList<>();
         TreeNode x_par = null;
@@ -39,5 +39,30 @@ class Solution {
             
         }
         return false;
+    }
+}*/
+class Solution{
+    public int xdep = -1;
+    public int ydep = -2;
+    TreeNode xpar = null;
+    TreeNode ypar = null;
+    public boolean isCousins(TreeNode root, int x, int y){
+        helper(root, x, y, 0, null);
+        return xdep == ydep && xpar != ypar;
+    }
+    public void helper(TreeNode root, int x, int y, int depth, TreeNode par){
+        if(root == null) return;
+        if(root.val == x){
+            xpar = par;
+            xdep = depth;
+        }
+        else if(root.val == y){
+            ypar = par;
+            ydep = depth;
+        }
+        else{
+            helper(root.left, x, y, depth + 1, root);
+            helper(root.right,x, y, depth + 1, root);
+        }
     }
 }
