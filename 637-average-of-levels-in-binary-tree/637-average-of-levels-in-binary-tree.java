@@ -15,15 +15,16 @@
  */
 class Solution {
     List<Double> ans;
+    Queue<TreeNode> q;
     public List<Double> averageOfLevels(TreeNode root) {
         ans = new ArrayList<>();
-        Queue<TreeNode> q = new LinkedList<>();
+        q = new LinkedList<>();
         q.add(root);
         q.add(null);
-        helper(root, q, 0);
+        helper(root, 0);
         return ans;
     }
-    public void helper(TreeNode root, Queue<TreeNode> q, int level){
+    public void helper(TreeNode root, int level){
         if(q.peek() == null) return;
         TreeNode t = q.poll();
         double avg = 0;
@@ -38,6 +39,6 @@ class Solution {
         avg = (double) (avg / count);
         ans.add(avg);
         q.add(null);
-        helper(root, q, level + 1);
+        helper(root, level + 1);
     }
 }
