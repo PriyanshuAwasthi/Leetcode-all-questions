@@ -20,10 +20,10 @@ class Solution {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         q.add(null);
-        helper(root, q, 0);
+        helper(root, q);
         return ans;
     }
-    public void helper(TreeNode root, Queue<TreeNode> q, int level){
+    public void helper(TreeNode root, Queue<TreeNode> q){
         if(q.peek() == null) return;
         TreeNode t = q.poll();
         double avg = 0;
@@ -35,9 +35,9 @@ class Solution {
             if(t.right != null) q.add(t.right);
             t = q.poll();
         }
-        avg = (double) (avg / count);
+        avg = avg / count;
         ans.add(avg);
         q.add(null);
-        helper(root, q, level + 1);
+        helper(root, q);
     }
 }
