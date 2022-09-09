@@ -1,52 +1,4 @@
 class Solution {
-    class Pair{
-        int i;
-        int j;
-        public Pair(int x, int y){
-            i = x;
-            j = y;
-        }
-    }
-    int [][]dir;
-    public int orangesRotting(int[][] grid) {
-        dir = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-        Queue<Pair> q = new LinkedList<>();
-        int n = grid.length;
-        int m = grid[0].length;
-        for(int i = 0; i < n; i++) for(int j = 0; j < m; j++) if(grid[i][j] == 2) q.add(new Pair(i, j));
-        
-        int count = 0;
-        boolean f = false;
-        while(!q.isEmpty()){
-            f = true;
-            count++;
-            int sz=q.size();
-            while(sz-->0){
-             Pair p = q.poll();
-            int r = p.i;
-            int c = p.j;
-            for(int i = 0; i < 4; i++){
-                int row = r + dir[i][0];
-                int col = c + dir[i][1];
-                if(row >= 0 && col >= 0 && row < n && col < m && grid[row][col] == 1){
-                    grid[row][col] = 2;
-                    q.add(new Pair(row, col));
-                } 
-            }
-            
-            }
-          
-        }
-        
-        for(int temp[] : grid){
-            for(int i : temp) if(i == 1) return -1;
-        }
-        if(f==false)return 0;
-        return count - 1;
-    }
-}
-
-/*class Solution {
     public int [][] dir=new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
     public int orangesRotting(int[][] grid) {
         
@@ -86,7 +38,6 @@ class Solution {
               
             
         }
-        
        
          for( int i=0;i<m;i++)
             for(int j=0;j<n;j++){
@@ -97,4 +48,4 @@ class Solution {
         return level-1;
         
     }
-}*/
+}
