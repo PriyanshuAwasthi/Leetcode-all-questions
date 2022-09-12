@@ -20,7 +20,7 @@ class Solution {
         if(root == null) return 0;
         left = 1 + maxDepth(root.left);
         right = 1 + maxDepth(root.right);
-        if(root.left == null && root.right == null) return 1;
+        //if(root.left == null && root.right == null) return 1;
         return Math.max(left, right);
     }
 }
