@@ -16,7 +16,6 @@
 class Solution {
     int ispalindromecount = 0;
     public int pseudoPalindromicPaths (TreeNode root) {
-        ispalindromecount = 0;
         dfsearch(root, 0);
         return ispalindromecount;
     }
