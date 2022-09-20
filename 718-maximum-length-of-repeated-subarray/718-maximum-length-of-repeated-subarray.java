@@ -19,7 +19,6 @@
 class Solution {
     private static final int PRIME = 101;
     private static final int MOD = 1_000_000_007;
-    
     public int findLength(int[] A, int[] B) {
         if (A.length < B.length) return findLength(B, A);
         
@@ -60,9 +59,8 @@ class Solution {
         set.add((int) hash);
         
         long power = 1;
-        for (int i = 0; i < mid-1; i++) {
-            power = (power * PRIME) % MOD;
-        }
+        for (int i = 0; i < mid-1; i++) power = (power * PRIME) % MOD;
+        
         
         for (int i = 0, j = mid; j < B.length; i++, j++) {
             hash = hash - ((B[i] + 1) * power % MOD) + MOD;
