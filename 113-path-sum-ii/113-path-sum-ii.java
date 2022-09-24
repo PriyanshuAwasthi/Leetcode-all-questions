@@ -14,11 +14,9 @@
  * }
  */
 class Solution {
-    public List<Integer> temp;
-    public List<List<Integer>> ans;
+    public List<Integer> temp = new ArrayList();;
+    public List<List<Integer>> ans  = new ArrayList();
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        temp = new ArrayList();
-        ans = new ArrayList();
         helper(root, targetSum);
         return ans;
     }
