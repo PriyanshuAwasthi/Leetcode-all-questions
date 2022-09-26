@@ -1,6 +1,6 @@
 class Solution {
     public boolean equationsPossible(String[] equations) {
-              if(equations.length == 0) return true;
+        if(equations.length == 0) return true;
         Map<Character, HashSet<Character>> map = new HashMap<>();
         for(String formula : equations) {
             if(formula.charAt(1) == '=') {
