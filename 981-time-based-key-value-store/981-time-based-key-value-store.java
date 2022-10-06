@@ -1,32 +1,29 @@
 class TimeMap {
-    private static final String DEFAULT_VALUE = "";
-    private final HashMap<String, TreeMap<Integer, String>> map;
-
-    /** Initialize your data structure here. */
+    public String DEF = "";
+    public HashMap<String, TreeMap<Integer, String>> map;
     public TimeMap() {
         map = new HashMap<>();
     }
     
     public void set(String key, String value, int timestamp) {
-        TreeMap<Integer, String> timeMap;
-        if (map.containsKey(key)) {
-            timeMap = map.get(key);
-        } else {
-            timeMap = new TreeMap<>();
-            map.put(key, timeMap);
+        TreeMap<Integer, String> temp;
+        if(map.containsKey(key)){
+            temp = map.get(key);
         }
-        timeMap.put(timestamp, value);
+        else{
+            temp = new TreeMap<>();
+            map.put(key, temp);
+        }
+        temp.put(timestamp, value);
     }
     
     public String get(String key, int timestamp) {
-        if (map.containsKey(key)) {
-            TreeMap<Integer, String> timeMap = map.get(key);
-            Integer floorKey = timeMap.floorKey(timestamp);
-            if (floorKey != null) {
-                return timeMap.get(floorKey);
-            }
+        if(map.containsKey(key)){
+            TreeMap<Integer, String> mp = map.get(key);
+            Integer ans = mp.floorKey(timestamp);
+            if(ans != null) return mp.get(ans);
         }
-        return DEFAULT_VALUE;
+        return DEF;
     }
 }
 
