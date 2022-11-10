@@ -1,10 +1,13 @@
 class Solution {
-    public String removeDuplicates(String S) {
-        StringBuilder sb = new StringBuilder();
-        for (char ch: S.toCharArray()){
-            if(sb.length() != 0 && sb.charAt(sb.length() - 1) == ch) sb.deleteCharAt(sb.length() - 1);
-            else sb.append(ch);
+    public String removeDuplicates(String s) {
+        Stack<Character> s1 = new Stack<>();
+        for(int i = 0; i < s.length(); i++){
+            if(s1.size() >= 1 && s.charAt(i) == s1.peek()) s1.pop();
+            else s1.push(s.charAt(i));
         }
-        return sb.toString();
+        StringBuilder ans = new StringBuilder();
+        Iterator<Character> value1 = s1.iterator();
+        while(value1.hasNext()) ans.append(value1.next().toString());
+        return ans.toString();
     }
 }
