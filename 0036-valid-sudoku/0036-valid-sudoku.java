@@ -1,6 +1,6 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        for(int i =0;i<board.length;i++) for(int j=0;j<board[0].length;j++) if(board[i][j] != '.') if(!helper(board,i,j)) return false;
+        for(int i = 0; i < board.length; i++) for(int j = 0; j < board[0].length; j++) if(board[i][j] != '.') if(!helper(board, i, j)) return false;
         return true;
     }
     public boolean helper(char[][] b, int i, int j){
